@@ -38,7 +38,7 @@ Class TimeslotUI{
 $handle =  new TimeslotUI();
 
 if (isset($_POST['timeslot'],$_POST['machine'],$_POST['selectedDay'])){
-    return $handle->assignTime($_POST['machine'],$_POST['timeslot'],$_POST['selectedDay']);
+    echo $handle->assignTime($_POST['machine'],$_POST['timeslot'],$_POST['selectedDay']);
 }
 
 elseif (isset($_POST['selectedDay'])){

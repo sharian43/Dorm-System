@@ -74,12 +74,9 @@ document.addEventListener("DOMContentLoaded", function () {
                                 fixed.classList.add('selected');
                             } else if (scheduler == "unavailable") {
                                 alert("Timeslot Not Available");
-                            } else if (scheduler = "limited") {
-<<<<<<< HEAD
+                            } else if (scheduler == "limited") {
                                 console.log(scheduler);
-=======
                                 alert("Timeslot Reservation Limit Reached")
-                                alert("Failed To Reserve Timeslot.");
                             }
                         } else {
                             alert("Error Occurred");

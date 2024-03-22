@@ -27,10 +27,7 @@ class TimeslotController
     public function assignTimeslot($machineKey, $timeslot, $selectedDay)
     {
         $db = new DBController();
-        $username = $_SESSION['userName'];
-        $firstname = $_SESSION['fname'];
-        $lastname = $_SESSION['lname'];
-        $user = new Resident($username, $firstname, $lastname);
+        $user = new Resident("4567", "Something", "Something");
         $ts = new Timeslot($selectedDay, $machineKey, $timeslot);
         $message = $db->assignUserTimeslot($user, $ts);
         $db->closeConnection();

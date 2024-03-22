@@ -81,28 +81,26 @@ class DBController
         if ($selectedDay == "null") {
             $selectedDay = Date("w");
         }
-        var_dump($selectedDay . "selected ");
 
         //assign data that was posted to the handler to variables
         $timeslot12 = $ts->getTime();
         $machinery = $ts->getMachineNum();
         $timestamp = strtotime($timeslot12);
         $timeslot24 = date('H:i:s', $timestamp);
-        $username = $user->getId();
+        $username = "4567";
 
         if ($this->checkLimit($user->getId())) {
             $updateQuery = $this->mysqli->prepare("UPDATE reservations SET user_name = ? WHERE machine = ? AND timeslot = ? AND day = ?");
             $updateQuery->bind_param("ssss", $username, $machinery, $timeslot24, $selectedDay);
             if ($updateQuery->execute()) {
-                $updateQuery->close();
                 return "success";
-            } else {
-                $updateQuery->close();
+                
+            } 
+            else {
                 return "failure";
             }
-
-            
-        } else {
+        } 
+        else {
             return "limited";
         }
     }
@@ -112,7 +110,6 @@ class DBController
     private function checkLimit($user)
     {
         $limitQuery = $this->mysqli->prepare("SELECT assignments FROM dorm WHERE username=?");
-
         if ($limitQuery->bind_param("s", $user)) {
             if ($limitQuery->execute()) {
                 $results = $limitQuery->get_result();
