@@ -1,6 +1,6 @@
 <?php
 
-class MachineStatusUpdate {
+class MachineStatusUI {
     private $mysqli;
     private $reservations;
 
@@ -92,7 +92,7 @@ class MachineStatusUpdate {
     }
 }
 
-$machineStatusUpdate = new MachineStatusUpdate();
-echo $machineStatusUpdate->generateMachineStatus();
+$machineStatusUI = new MachineStatusUI();
+echo $machineStatusUI->generateMachineStatus();
 
 ?>
