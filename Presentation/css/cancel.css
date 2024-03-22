@@ -1,0 +1,49 @@
+.timeSlotted{
+    border: 1px solid #ddd;
+    background-color: white;
+    border-radius:5px;
+    text-align: center;
+    padding: 30px;
+    display: inline-grid;
+    justify-content: center;
+    align-content: center;
+    font-family: 'Lilita One','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    cursor: pointer;
+}
+
+.timeSlotted.selected{
+    background-color: cadetblue;
+    color: white;
+}
+
+.timeSlotted.Unavailable{
+    pointer-events: none;
+    background-color: gray;
+    color: white;
+}
+
+#cancellationForm{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-left: 227px;
+    height: 300px;
+    margin-right: 325px;
+    margin-top: 50px;
+}
+
+h1{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+h2{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-family: "Lilita One";
+}

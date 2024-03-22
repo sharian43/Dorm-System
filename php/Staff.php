@@ -6,12 +6,8 @@ class Staff extends User{
     public $password;
     public $timeslotamt;
 
-    public function __construct($id, $firstname, $lastname, $password, $timeslotamt) {
-        parent::__construct($id, $firstname, $lastname, $password);
-        $this->timeslotamt = $timeslotamt;
-    }
-    public function getTimeslot(){
-        return $timeslotamt;
+    public function __construct($id, $firstname, $lastname) {
+        parent::__construct($id, $firstname, $lastname);
     }
 
 }

@@ -1,0 +1,62 @@
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url(../img/rm222batch2-mind-03.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#waitlist-container {
+  max-width: 600px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+#waitlist {
+  list-style-type: none;
+  padding: 0;
+}
+
+#nowserving-table{
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 50px;
+  align-self: center;
+ 
+}
+
+#nowserving-table th {
+  border: 1px solid black;
+  text-align: center;
+  padding: 8px;
+  background-color: #64bbe9 ;
+}
+
+#nowserving-table td{
+  background-color: white;
+  border: 1px solid black;
+}
+
+
+#waitlist-table{
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 50px;
+  align-self: center;
+}
+
+
+#waitlist-table th {
+  border: 1px solid black;
+  text-align: center;
+  padding: 8px;
+  background-color: #64bbe9 ;
+}
+
+#waitlist-table td{
+  background-color: white;
+  border: 1px solid black;
+}

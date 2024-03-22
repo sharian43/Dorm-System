@@ -1,32 +1,25 @@
 <?php
 class User {
-    public $id;
-    public $firstname;
-    public $lastname;
-    public $password;
+    private $id;
+    private $firstname;
+    private $lastname;
+    private $password;
 
-    public function __construct($id, $firstname, $lastname, $password) {
+    public function __construct($id, $firstname, $lastname) {
         $this->id = $id;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
-        $this->password = $password;
     }
     public function getId(){
-        return $id;
+        return $this->id;
     }
 
     public function getFirstName(){
-        return $firstname
+        return $this->firstname;
     }
 
     public function LastName(){
-        return $lastname
+        return $this->lastname;
     }
    
-    public function getPassword(){
-        return  $password
-    }
 }
-
-
-?>
