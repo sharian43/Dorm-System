@@ -82,7 +82,7 @@ if (isset($_POST['machine'])) {
     $machineStatusHandler->updateMachineStatus($machine);
    
     $machineStatusHandler->closeConnection(); 
-    header("Location: MachineStatusUpdate.php");
+    header("Location: MachineStatusUI.php");
 
 } else {
     echo "Invalid request.";
