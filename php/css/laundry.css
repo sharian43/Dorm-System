@@ -1,0 +1,305 @@
+body{
+    display: flex;
+    flex-direction: column;
+    background-image:url(../img/blue-curve-background/rm222batch2-mind-03.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    margin:0;
+    padding:0;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#timeSlotField{
+    display:flex;
+    flex-direction: column;
+    padding: 0px;
+    border-radius: 1px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    position:relative;
+    z-index: 1;
+    width:100%;
+    height:100%;
+    overflow: auto;
+    
+}
+
+#profile{
+    width: 100px;
+    justify-self: center;
+    align-self: end;
+}
+
+#sidebar p{
+    justify-self: center;
+    font-family: "Lilita One";
+    font-size: 1.5em;
+    align-self: center;
+}
+
+
+
+#sidebar a{
+    height:30px;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding:22px;
+    font-family:"Lilita One";
+    transition: background-color 1.0s ease;
+    
+}
+
+.sideLinks:hover{
+    background-color: rgba(3,3,3,0.2);
+    margin:0px;
+    
+}
+
+.sideLinks{
+    background-color: rgba(0,0,0,0);
+    width:100%;
+    margin:0px;
+    align-self: center;
+    padding:16px 0px;       
+    justify-self: center;
+}
+
+a{
+    color:black;
+}
+
+#gridWork{
+    display: grid;
+    grid-template-columns: 100px repeat(13,1fr);
+    column-gap: 7px;
+    grid-gap:10px;
+}
+
+
+span{
+    font-family: "Lilita One";
+}
+
+h1{
+    font-family: 'Lilita One','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:cadetblue;
+    font-size: 5rem;
+}
+
+#menu{
+    margin: 0px;
+    margin-left:20px;
+    padding: 10px;
+    display: inline-flex;
+    height: 40px;
+    width:40px;
+    justify-content: left;
+    margin-bottom: 0px;
+    cursor: pointer;
+    padding-bottom: 0px;
+}
+
+#topBar{
+    display: flex;
+    justify-content: space-between;
+}
+
+#currTime{
+    font-family: 'Lilita One','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0px;
+    padding: 10px;
+}
+
+#sidebar{
+    position:absolute;
+    top: 0;
+    width:250px;
+    border-radius: 15px;
+    left: -300px;
+    height: 100%;
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.2);
+    z-index: 1;
+    transition:left 0.3s;
+    background-color: white;
+    color:black;
+    display: grid;
+    grid-template-rows: 80px repeat(8,50px);
+    padding: 0px;
+    gap: 5px;
+}
+
+
+#close{
+    cursor:pointer;
+    margin-right: auto;
+    height: 40px;
+    width: 40px;
+
+}
+
+#machine{
+    height:100px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+.timeSlot{
+    border: 1px solid #ddd;
+    background-color: white;
+    border-radius:5px;
+    text-align: center;
+    padding: 5px;
+    display: inline-grid;
+    justify-content: center;
+    align-content: center;
+    font-family: 'Lilita One','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    cursor: pointer;
+}
+
+.timeSlot.selected{
+    background-color: cadetblue;
+    color: white;
+    
+}
+
+.timeSlot.unavailable{
+    pointer-events: none;
+    background-color: gray;
+    color: white;
+}
+
+.block{
+    display:inline-block;
+    margin: 0px;
+    padding: 0px;
+    align-content: center;
+    justify-content: center;
+}
+
+.sideLinks.selected{
+    color:white;
+    background-color: cadetblue;
+}
+
+.selected{
+    color:white;
+}
+
+#dynamic{
+    min-height: 60vw;
+}
+
+#dynamic #maintenanceBody{
+    display: flex;
+    flex-direction: column;
+    margin:0;
+    padding:0;
+    align-items: center;
+    justify-content: center;
+}
+
+#daySelector{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: "Lilita One";
+    margin-bottom: 20px;
+    margin-left: 110px;
+}
+
+.days{
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 30px;
+    cursor: pointer;
+    margin-right: 5px;
+    width: 50px;
+    height: 50px;
+    justify-content: center;
+    display: flex;
+    border-color: white;
+    border-radius: 50%;
+    align-items: center;
+}
+
+.days.selected{
+    background-color: cadetblue;
+    color: white;
+    
+}
+
+.machineDisplayer .Machine{
+    margin: 10px;
+}
+
+.machineDisplayer .machine{
+    height:100px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.machineDisplay{
+    display: flex;
+    margin: 3em;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.2);
+    align-items: center;
+}
+
+.machineDisplay span{
+    font-family: "Lilita One";
+}
+
+#machineSelect{
+    border-radius: 5px;
+    border-color: white;
+    background-color: white;
+    font-family: "Lilita One";
+}
+
+.machineButtons{
+    border-color: white;
+    background-color: cadetblue;
+    color: white;
+    font-family: "Lilita One";
+    align-items: center;
+    display: flex;
+    width: 100px;
+    height: 70px;
+    border-radius: 5px;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.machineDisplayer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 3em;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.2);   
+}
+
+.commentSection{
+    display: flex;
+    flex-direction: column;
+}
+
+.commentSection button{
+    background-color: white;
+    border-radius: 5px;
+    font-family: "Lilita One";
+}

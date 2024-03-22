@@ -1,18 +1,15 @@
 <?php
 class Resident extends User{
-    public $id;
-    public $firstname;
-    public $lastname;
-    public $password;
-    public $timeslotamt;
+    private $timeslotamt;
 
-    public function __construct($id, $firstname, $lastname, $password, $timeslotamt) {
-        parent::__construct($id, $firstname, $lastname, $password);
+    public function __construct($id, $firstname, $lastname) {
+        parent::__construct($id, $firstname, $lastname);
+    }
+    public function getLimits(){
+        return $this->timeslotamt;
+    }
+
+    public function setTimeslotamt($timeslotamt){
         $this->timeslotamt = $timeslotamt;
     }
-    public function getTimeslot(){
-        return $timeslotamt;
-    }
-
 }
-?>
