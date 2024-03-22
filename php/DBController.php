@@ -113,6 +113,7 @@ class DBController
             if ($limitQuery->execute()) {
                 $results = $limitQuery->get_result();
                 $rows = $results->fetch_assoc();
+                
 
                 if ($rows["assignments"] < 2) {
                     $updateLimitQuery = $this->mysqli->prepare("UPDATE dorm SET assignments = assignments + 1 WHERE username=?");
