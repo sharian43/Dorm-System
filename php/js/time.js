@@ -69,12 +69,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (timeRequest.status === 200) {
                             let scheduler = timeRequest.responseText;
                             console.log(scheduler);
-                            if (scheduler == "success") {
+                            if (scheduler === "success") {
                                 alert("Timeslot Reserved")
                                 fixed.classList.add('selected');
-                            } else if (scheduler == "unavailable") {
+                            } else if (scheduler === "unavailable") {
                                 alert("Timeslot Not Available");
-                            } else if (scheduler == "limited") {
+                            } else if (scheduler === "limited") {
                                 console.log(scheduler);
                                 alert("Timeslot Reservation Limit Reached")
                             }
