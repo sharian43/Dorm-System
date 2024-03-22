@@ -56,7 +56,7 @@ class DBController
         }
     }
 
-    function getTyped(mysqli $mysqli, $username)
+    public function getTyped(mysqli $mysqli, $username)
     {
         $query = $mysqli->prepare("SELECT firstname, lastname, usertype FROM dorm WHERE username = ?");
         if ($query) {
@@ -88,7 +88,8 @@ class DBController
         $machinery = $ts->getMachineNum();
         $timestamp = strtotime($timeslot12);
         $timeslot24 = date('H:i:s', $timestamp);
-        $username = "1234";
+        $username = $user->getId();
+
         if ($this->checkLimit($user->getId())) {
             $updateQuery = $this->mysqli->prepare("UPDATE reservations SET user_name = ? WHERE machine = ? AND timeslot = ? AND day = ?");
             $updateQuery->bind_param("ssss", $username, $machinery, $timeslot24, $selectedDay);
@@ -116,6 +117,7 @@ class DBController
             if ($limitQuery->execute()) {
                 $results = $limitQuery->get_result();
                 $rows = $results->fetch_assoc();
+                
 
                 if ($rows["assignments"] < 2) {
                     $updateLimitQuery = $this->mysqli->prepare("UPDATE dorm SET assignments = assignments + 1 WHERE username=?");
