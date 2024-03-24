@@ -1,4 +1,13 @@
 <?php
+
+namespace DataAccess;
+
+use mysqli;
+use Security;
+use Security\Authenticator;
+
+require "../Security/Authenticator.php";
+
 class DBController
 {
     //Initializing variables
@@ -12,7 +21,7 @@ class DBController
             die("Connection failed: " . $this->mysqli->connect_error);
         }
         //set date function to local time
-        date_default_timezone_set('America/New_York');
+        date_default_timezone_set('America/Jamaica');
     }
 
     public function getReservations($selectedDay = null)
@@ -20,7 +29,7 @@ class DBController
         $query = $this->mysqli->prepare("SELECT machine, timeslot, user_name, day FROM reservations WHERE day = ?");
         //get current day in 0-6 form where sunday is 0.
 
-        if ($selectedDay==null) {
+        if ($selectedDay == null) {
             $selectedDay = date("w");
         }
 
@@ -88,19 +97,20 @@ class DBController
         $timestamp = strtotime($timeslot12);
         $timeslot24 = date('H:i:s', $timestamp);
         $username = "4567";
-
-        if ($this->checkLimit($user->getId())) {
-            $updateQuery = $this->mysqli->prepare("UPDATE reservations SET user_name = ? WHERE machine = ? AND timeslot = ? AND day = ?");
-            $updateQuery->bind_param("ssss", $username, $machinery, $timeslot24, $selectedDay);
-            if ($updateQuery->execute()) {
-                return "success";
+        if (Authenticator::verifyEmptyTimeslot($ts)) {
+            if ($this->checkLimit($user->getId())) {
+                $updateQuery = $this->mysqli->prepare("UPDATE reservations SET user_name = ? WHERE machine = ? AND timeslot = ? AND day = ?");
+                $updateQuery->bind_param("ssss", $username, $machinery, $timeslot24, $selectedDay);
+                if ($updateQuery->execute()) {
+                    return "success";
+                } else {
+                    return "failure";
+                }
+            } else {
+                return "limited";
             }
-            else {
-                return "failure";
-            }
-        } 
-        else {
-            return "limited";
+        } else {
+            return "unavailable";
         }
     }
 
@@ -113,7 +123,7 @@ class DBController
             if ($limitQuery->execute()) {
                 $results = $limitQuery->get_result();
                 $rows = $results->fetch_assoc();
-                
+
 
                 if ($rows["assignments"] < 2) {
                     $updateLimitQuery = $this->mysqli->prepare("UPDATE dorm SET assignments = assignments + 1 WHERE username=?");

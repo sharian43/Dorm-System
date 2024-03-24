@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const schedule = new XMLHttpRequest();
     const dynamic = document.getElementById("gridWork");
+    const days = document.querySelectorAll(".days");
     const daysOfWeek = {
         "Sunday": 0,
         "Monday": 1,
@@ -10,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "Thursday": 4,
         "Friday": 5,
         "Saturday": 6
-      };
+    };
 
     setupEventListeners()
 
@@ -21,34 +22,32 @@ document.addEventListener("DOMContentLoaded", function () {
         return element;
     }
 
-    function setupEventListeners() {
-        const days = document.querySelectorAll(".days");
-        days.forEach(day => {
-            day.addEventListener("click", function () {
-                days.forEach(day=>{day.classList.remove("selected")});
-                this.classList.add("selected");
-                let dayName = this.textContent.trim();
-                let dayNumber = daysOfWeek[dayName];
-                console.log("Reach");
-                const scheduleRequest = new XMLHttpRequest();
-                scheduleRequest.open('POST', 'TimeslotUI.php', true);
-                scheduleRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                scheduleRequest.onreadystatechange = function () {
-                    if (scheduleRequest.readyState === XMLHttpRequest.DONE) {
-                        if (scheduleRequest.status === 200) {
-                            let scheduletimes = scheduleRequest.responseText;
-                            console.log(scheduletimes);
-                            dynamic.innerHTML = scheduletimes;
-                            setupEventListeners(); // Re-attach event listeners
-                        } else {
-                            alert("Error Occurred");
-                        }
+    days.forEach(day => {
+        day.addEventListener("click", function () {
+            days.forEach(day => { day.classList.remove("selected") });
+            this.classList.add("selected");
+            let dayName = this.textContent.trim();
+            let dayNumber = daysOfWeek[dayName];
+            const scheduleRequest = new XMLHttpRequest();
+            scheduleRequest.open('POST', 'TimeslotUI.php', true);
+            scheduleRequest.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            scheduleRequest.onreadystatechange = function () {
+                if (scheduleRequest.readyState === XMLHttpRequest.DONE) {
+                    if (scheduleRequest.status === 200) {
+                        let scheduletimes = scheduleRequest.responseText;
+                        dynamic.innerHTML = scheduletimes;
+                        setupEventListeners(); // Re-attach event listeners
+                    } else {
+                        alert("Error Occurred");
                     }
-                };
-                let datas = "selectedDay=" + encodeURIComponent(dayNumber);
-                scheduleRequest.send(datas);
-            });
+                }
+            };
+            let datas = "selectedDay=" + encodeURIComponent(dayNumber);
+            scheduleRequest.send(datas);
         });
+    });
+
+    function setupEventListeners() {
 
         const timeSlots = document.querySelectorAll(".timeSlot");
         timeSlots.forEach(slot => {
@@ -83,10 +82,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                     }
                 };
-                if(typeof dayNumber === 'undefined'){
-                    dayNumber = null
-                }
-                let data = "timeslot=" + encodeURIComponent(timeSlot) + "&machine=" + encodeURIComponent(machine) + "&selectedDay=" + encodeURIComponent(dayNumber);
+                let currDay = document.querySelector(".days.selected");
+                let currName = currDay.textContent.trim();
+                let data = "timeslot=" + encodeURIComponent(timeSlot) + "&machine=" + encodeURIComponent(machine) + "&selectedDay=" + encodeURIComponent(currName);
                 timeRequest.send(data);
             });
         });

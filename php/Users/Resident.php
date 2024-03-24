@@ -1,16 +1,24 @@
 <?php
-Require "User.php";
-class Resident extends User{
+
+namespace Users;
+
+require "User.php";
+
+class Resident extends User
+{
     private $timeslotamt;
 
-    public function __construct($id, $firstname, $lastname) {
+    public function __construct($id, $firstname, $lastname)
+    {
         parent::__construct($id, $firstname, $lastname);
     }
-    public function getLimits(){
+    public function getLimits()
+    {
         return $this->timeslotamt;
     }
 
-    public function setTimeslotamt($timeslotamt){
+    public function setTimeslotamt($timeslotamt)
+    {
         $this->timeslotamt = $timeslotamt;
     }
 }

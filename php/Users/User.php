@@ -1,25 +1,32 @@
 <?php
-class User {
+
+namespace Users;
+
+class User
+{
     private $id;
     private $firstname;
     private $lastname;
     private $password;
 
-    public function __construct($id, $firstname, $lastname) {
+    public function __construct($id, $firstname, $lastname)
+    {
         $this->id = $id;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
     }
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getFirstName(){
+    public function getFirstName()
+    {
         return $this->firstname;
     }
 
-    public function LastName(){
+    public function LastName()
+    {
         return $this->lastname;
     }
-   
 }

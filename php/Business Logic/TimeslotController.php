@@ -1,7 +1,12 @@
 <?php
-require '../Data Access/DBController.php';
-require "../Users/Resident.php";
+
+namespace BusinessLogic;
+
+use DataAccess;
+
+require "../Data Access/DBController.php";
 require "Timeslot.php";
+
 
 class TimeslotController
 {
@@ -10,7 +15,7 @@ class TimeslotController
     }
     public function fetchStatus($machineKey)
     {
-        $controller = new DBController();
+        $controller = new DataAccess\DBController();
         $message = $controller->getMachineStatus($machineKey);
         $controller->closeConnection();
         return $message;
@@ -18,24 +23,24 @@ class TimeslotController
 
     public function timeslotRemover($machineKey, $timeslot, $selectedDay)
     {
-        $controller = new DBController();
+        $controller = new DataAccess\DBController();
         $controller->removeUnavailable($machineKey, $timeslot, $selectedDay);
         $controller->closeConnection();
         return;
     }
 
-    public function assignTimeslot($machineKey, $timeslot, $selectedDay)
+    public function assignTimeslot($machineKey, $timeslot, $selectedDay, $user)
     {
-        $db = new DBController();
-        $user = new Resident("4567", "Something", "Something");
-        $ts = new Timeslot($selectedDay, $machineKey, $timeslot);
+        $db = new DataAccess\DBController();
+        $ts = new Timeslot($selectedDay, $machineKey, $timeslot, $user);
         $message = $db->assignUserTimeslot($user, $ts);
         $db->closeConnection();
         return $message;
     }
 
-    public function checkingReservations($selectedDay){
-        $db = new DBController();
+    public function checkingReservations($selectedDay)
+    {
+        $db = new DataAccess\DBController();
         $message = $db->getReservations($selectedDay);
         $db->closeConnection();
         return $message;
@@ -43,7 +48,7 @@ class TimeslotController
 
     public function dailyReservations($selectedDay)
     {
-        $db = new DBController();
+        $db = new DataAccess\DBController();
         $message = $db->getReservations($selectedDay);
         $htmlcontentt = "";
         for ($machine = 1; $machine <= 10; $machine++) {

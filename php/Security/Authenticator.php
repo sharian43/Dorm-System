@@ -1,5 +1,9 @@
 <?php
 
+namespace Security;
+
+use mysqli;
+
 class Authenticator
 {
     private $mysqli;
@@ -7,7 +11,7 @@ class Authenticator
     public function __construct()
     {
         session_start();
-        date_default_timezone_set('America/New_York');
+        date_default_timezone_set('America/Jamaica');
     }
 
     public function login($username, $password)
@@ -27,20 +31,19 @@ class Authenticator
         }
     }
 
-    public function verifyEmptyTimeslot($ts)
+    static public function verifyEmptyTimeslot($ts)
     {
-        $this->mysqli = new mysqli("localhost", "root", "", "138users");
+        $mysqli = new mysqli("localhost", "root", "", "138users");
 
-        if ($this->mysqli->connect_error) {
-            die("Connection failed: " . $this->mysqli->connect_error);
+        if ($mysqli->connect_error) {
+            die("Connection failed: " . $mysqli->connect_error);
         }
         $selectedDay = $ts->getDay();
         $timeslot12 = $ts->getTime();
         $machinery = $ts->getMachineNum();
         $timestamp = strtotime($timeslot12);
         $timeslot24 = date('H:i:s', $timestamp);
-
-        $query = $this->mysqli->prepare("SELECT user_name FROM reservations WHERE timeslot = ? AND machine = ? AND day = ?");
+        $query = $mysqli->prepare("SELECT user_name FROM reservations WHERE timeslot = ? AND machine = ? AND day = ?");
         $query->bind_param("sss", $timeslot24, $machinery, $selectedDay);
 
         if ($query->execute()) {
@@ -49,16 +52,16 @@ class Authenticator
             $query->close();
 
             if ($row != null && $row["user_name"] == null) {
-                $this->closeConnection();
+                self::closeConnection($mysqli);
                 return True;
             }
         }
-        $this->closeConnection();
+        self::closeConnection($mysqli);
         return False;
     }
 
-    public function closeConnection()
+    static public function closeConnection($mysqli)
     {
-        $this->mysqli->close();
+        $mysqli->close();
     }
 }

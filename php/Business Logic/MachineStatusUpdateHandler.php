@@ -1,11 +1,18 @@
 <?php
+
+namespace BusinessLogic;
+
+use DataAccess;
+
 // Retreive the session variables set at login
 session_start();
 
-class MachineStatusUpdateHandler {
+class MachineStatusUpdateHandler
+{
     private $mysqli;
 
-    public function __construct() {
+    public function __construct()
+    {
         //access database
         $this->mysqli = new mysqli("localhost", "root", "", "138users");
         if ($this->mysqli->connect_error) {
@@ -13,7 +20,8 @@ class MachineStatusUpdateHandler {
         }
     }
     //function that reduces the assignment of all users assigned to the machine thats out of service 
-    public function reduceAssignment($failMachine) {
+    public function reduceAssignment($failMachine)
+    {
         $usersQuery = $this->mysqli->prepare("SELECT username FROM dorm WHERE assignments > 0 AND username IN (SELECT user_name FROM reservations WHERE machine = ? AND user_name IS NOT NULL)");
         $usersQuery->bind_param("s", $failMachine);
 
@@ -28,16 +36,18 @@ class MachineStatusUpdateHandler {
             }
         }
     }
-    
+
     //remove All users from the machine in maintenance
-    public function removeAllUnavailable($failMachine) {
+    public function removeAllUnavailable($failMachine)
+    {
         $updateQuery = $this->mysqli->prepare("UPDATE reservations SET user_name = NULL WHERE machine = ?");
         $updateQuery->bind_param("s", $failMachine);
         return $updateQuery->execute();
     }
-    
+
     //get the machine status of the selected machine
-    public function updateMachineStatus($machine) {
+    public function updateMachineStatus($machine)
+    {
         $statusQuery = $this->mysqli->prepare("SELECT machineStatus FROM `machine status` WHERE machineName=?");
         $statusQuery->bind_param("s", $machine);
 
@@ -71,7 +81,8 @@ class MachineStatusUpdateHandler {
         }
     }
 
-    public function closeConnection() {
+    public function closeConnection()
+    {
         $this->mysqli->close();
     }
 }
@@ -80,11 +91,9 @@ if (isset($_POST['machine'])) {
     $machine = $_POST['machine'];
     $machineStatusHandler = new MachineStatusUpdateHandler();
     $machineStatusHandler->updateMachineStatus($machine);
-   
-    $machineStatusHandler->closeConnection(); 
-    header("Location: MachineStatusUI.php");
 
+    $machineStatusHandler->closeConnection();
+    header("Location: MachineStatusUI.php");
 } else {
     echo "Invalid request.";
 }
-?>

@@ -1,4 +1,6 @@
 <?php
+namespace BusinessLogic;
+use DataAccess;
 class Machine{
   private $machine;
   private $status;

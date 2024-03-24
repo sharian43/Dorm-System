@@ -1,10 +1,17 @@
 <?php
 
-class MachineStatusUI {
+namespace Presentation;
+
+use mysqli;
+use Users;
+
+class MachineStatusUI
+{
     private $mysqli;
     private $reservations;
 
-    public function __construct() {
+    public function __construct()
+    {
         session_start();
         $this->mysqli = new mysqli("localhost", "root", "", "138users");
 
@@ -15,7 +22,8 @@ class MachineStatusUI {
         $this->fetchMachineStatuses();
     }
 
-    private function fetchMachineStatuses() {
+    private function fetchMachineStatuses()
+    {
         $query = $this->mysqli->prepare("SELECT machineName, machineStatus FROM `machine status`");
         if ($query->execute()) {
             $result = $query->get_result();
@@ -26,7 +34,8 @@ class MachineStatusUI {
         }
     }
 
-    public function generateMachineStatus() {
+    public function generateMachineStatus()
+    {
         $html = '<!DOCTYPE html>
                 <html lang="en">
                 <head>
@@ -51,7 +60,7 @@ class MachineStatusUI {
                         <option value="Machine 4">Machine 4</option>
                         <option value="Machine 5">Machine 5</option>
                     </select>';
-        
+
         for ($machine = 1; $machine <= 5; $machine++) {
             $isAvailable = ($this->reservations["Machine $machine"] == 1);
             $html .= '<div class="Machine' . ($isAvailable ? " Available" : "") . '">
@@ -88,11 +97,8 @@ class MachineStatusUI {
         </body>
         </html>';
         return  $html;
-    
     }
 }
 
 $machineStatusUI = new MachineStatusUI();
 echo $machineStatusUI->generateMachineStatus();
-
-?>

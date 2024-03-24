@@ -1,9 +1,20 @@
+<?php
+
+namespace Presentation;
+
+use BusinessLogic;
+use Users;
+
+require "TimeslotUI.php";
+
+date_default_timezone_set('America/Jamaica');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <?php
-require 'TimeslotUI.php';
-$TimeslotUI = new TimeslotUI(); 
+$TimeslotUI = new TimeslotUI();
 ?>
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -47,11 +58,11 @@ $TimeslotUI = new TimeslotUI();
                 ?>
                 <?php for ($hour = 8; $hour <= 20; $hour++) : ?>
                     <?php
-                        $timeslot = sprintf('%02d:00:00', $hour);
-                        $machineKey = "Machine $machine";
-                        $isSelected = isset($reservations[$machineKey][$selectedDay][$timeslot]);
-                        $currentTime = date('H:00:00');
-                        $isUnavailable = (($timeslot < $currentTime && $selectedDay == date("w")) || ($hour == date('H') && $selectedDay == date("w")) || $selectedDay < date("w") || ($TimeslotUI->showMachineStatus($machineKey) == 0));
+                    $timeslot = sprintf('%02d:00:00', $hour);
+                    $machineKey = "Machine $machine";
+                    $isSelected = isset($reservations[$machineKey][$selectedDay][$timeslot]);
+                    $currentTime = date('H:00:00');
+                    $isUnavailable = (($timeslot < $currentTime && $selectedDay == date("w")) || ($hour == date('H') && $selectedDay == date("w")) || $selectedDay < date("w") || ($TimeslotUI->showMachineStatus($machineKey) == 0));
                     ?>
                     <!-- Set selected if userID is set in the database and add class for unavailable timeslots if current time passes it-->
                     <div class="timeSlot<?= $isSelected ? ' selected' : '' ?><?= $isUnavailable ? ' unavailable' : '' ?>">
