@@ -65,6 +65,18 @@ class DBController
         }
     }
 
+    public function fetchStats()
+    {
+        $query = $this->mysqli->prepare("SELECT machineName, machineStatus FROM `machine status`");
+        if ($query->execute()) {
+            $result = $query->get_result();
+            $reservations = [];
+            while ($row = $result->fetch_assoc()) {
+                $reservations[$row['machineName']] = $row['machineStatus'];
+            }
+            return $reservations;
+        }
+    }
     public function getTyped(mysqli $mysqli, $username)
     {
         $query = $mysqli->prepare("SELECT firstname, lastname, usertype FROM dorm WHERE username = ?");
@@ -139,6 +151,67 @@ class DBController
                     return false;
                 }
             }
+        }
+    }
+
+    private function reduceAssignment($failMachine)
+    {
+        $usersQuery = $this->mysqli->prepare("SELECT username FROM dorm WHERE assignments > 0 AND username IN (SELECT user_name FROM reservations WHERE machine = ? AND user_name IS NOT NULL)");
+        $usersQuery->bind_param("s", $failMachine);
+
+        if ($usersQuery->execute()) {
+            $result = $usersQuery->get_result();
+            // iterate through users and reduce their assignments by 1 for every user assigned to the specified machine
+            while ($row = $result->fetch_assoc()) {
+                $user = $row['username'];
+                $negativeQuery = $this->mysqli->prepare("UPDATE dorm SET assignments = assignments - 1 WHERE username = ?");
+                $negativeQuery->bind_param("s", $user);
+                $negativeQuery->execute();
+            }
+        }
+    }
+
+    //remove All users from the machine in maintenance
+    private function removeAllUnavailable($failMachine)
+    {
+        $updateQuery = $this->mysqli->prepare("UPDATE reservations SET user_name = NULL WHERE machine = ?");
+        $updateQuery->bind_param("s", $failMachine);
+        return $updateQuery->execute();
+    }
+
+    //get the machine status of the selected machine
+    public function updateMachineStatus($machine)
+    {
+        $statusQuery = $this->mysqli->prepare("SELECT machineStatus FROM `machine status` WHERE machineName=?");
+        $statusQuery->bind_param("s", $machine);
+
+        if ($statusQuery->execute()) {
+            $result = $statusQuery->get_result();
+            $row = $result->fetch_assoc();
+            $status = $row["machineStatus"];
+
+            if ($status == 0) {
+                $updateStatus = 1;
+            } else {
+                $updateStatus = 0;
+            }
+
+            $updateQuery = $this->mysqli->prepare("UPDATE `machine status` SET machineStatus = ? WHERE machineName = ?");
+            $updateQuery->bind_param("ss", $updateStatus, $machine);
+
+            if ($updateQuery->execute()) {
+                if ($status == 0) {
+                    return "green";
+                } else {
+                    $this->reduceAssignment($machine);
+                    $this->removeAllUnavailable($machine);
+                    return "red";
+                }
+            } else {
+                return "fail";
+            }
+        } else {
+            return "Failed to update machine status.";
         }
     }
 

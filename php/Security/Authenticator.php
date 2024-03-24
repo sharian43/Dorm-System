@@ -31,6 +31,33 @@ class Authenticator
         }
     }
 
+    public function authenticateResident()
+    {
+        if ($_SESSION['role'] == 'resident') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function authenticateLaundryStaff()
+    {
+        if ($_SESSION['role'] == "laundry") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function authenticateMaintStaff()
+    {
+        if ($_SESSION["role"] == "maintenance") {
+            return true;
+        }
+        return false;
+    }
+
+
     static public function verifyEmptyTimeslot($ts)
     {
         $mysqli = new mysqli("localhost", "root", "", "138users");

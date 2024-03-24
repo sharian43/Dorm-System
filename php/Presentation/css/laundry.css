@@ -1,38 +1,38 @@
-body{
+body {
     display: flex;
     flex-direction: column;
-    background-image:url(../img/blue-curve-background/rm222batch2-mind-03.jpg);
+    background-image: url(../img/blue-curve-background/rm222batch2-mind-03.jpg);
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     align-items: center;
     justify-content: center;
 
 }
 
-#timeSlotField{
-    display:flex;
+#timeSlotField {
+    display: flex;
     flex-direction: column;
     padding: 0px;
     border-radius: 1px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    position:relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative;
     z-index: 1;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
     overflow: auto;
-    
+
 }
 
-#profile{
+#profile {
     width: 100px;
     justify-self: center;
     align-self: end;
 }
 
-#sidebar p{
+#sidebar p {
     justify-self: center;
     font-family: "Lilita One";
     font-size: 1.5em;
@@ -41,171 +41,171 @@ body{
 
 
 
-#sidebar a{
-    height:30px;
+#sidebar a {
+    height: 30px;
     text-decoration: none;
     font-size: 1.2em;
-    padding:22px;
-    font-family:"Lilita One";
+    padding: 22px;
+    font-family: "Lilita One";
     transition: background-color 1.0s ease;
-    
+
 }
 
-.sideLinks:hover{
-    background-color: rgba(3,3,3,0.2);
-    margin:0px;
-    
+.sideLinks:hover {
+    background-color: rgba(3, 3, 3, 0.2);
+    margin: 0px;
+
 }
 
-.sideLinks{
-    background-color: rgba(0,0,0,0);
-    width:100%;
-    margin:0px;
+.sideLinks {
+    background-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    margin: 0px;
     align-self: center;
-    padding:16px 0px;       
+    padding: 16px 0px;
     justify-self: center;
 }
 
-a{
-    color:black;
+a {
+    color: black;
 }
 
-#gridWork{
+#gridWork {
     display: grid;
-    grid-template-columns: 150px repeat(13,1fr);
+    grid-template-columns: 150px repeat(13, 1fr);
     column-gap: 7px;
-    grid-gap:10px;
+    grid-gap: 10px;
 }
 
 
-span{
+span {
     font-family: "Lilita One";
 }
 
-h1{
-    font-family: 'Lilita One','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color:cadetblue;
+h1 {
+    font-family: 'Lilita One', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: cadetblue;
     font-size: 5rem;
 }
 
-#menu{
+#menu {
     margin: 0px;
-    margin-left:20px;
+    margin-left: 20px;
     padding: 10px;
     display: inline-flex;
     height: 40px;
-    width:40px;
+    width: 40px;
     justify-content: left;
     margin-bottom: 0px;
     cursor: pointer;
     padding-bottom: 0px;
 }
 
-#topBar{
+#topBar {
     display: flex;
     justify-content: space-between;
 }
 
-#currTime{
-    font-family: 'Lilita One','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+#currTime {
+    font-family: 'Lilita One', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 0px;
     padding: 10px;
 }
 
-#sidebar{
-    position:absolute;
+#sidebar {
+    position: absolute;
     top: 0;
-    width:250px;
+    width: 250px;
     border-radius: 15px;
     left: -300px;
     height: 100%;
-    box-shadow: 10px 10px 20px rgba(0,0,0,0.2);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    transition:left 0.3s;
+    transition: left 0.3s;
     background-color: white;
-    color:black;
+    color: black;
     display: grid;
-    grid-template-rows: 80px repeat(8,50px);
+    grid-template-rows: 80px repeat(8, 50px);
     padding: 0px;
     gap: 5px;
 }
 
 
-#close{
-    cursor:pointer;
+#close {
+    cursor: pointer;
     margin-right: auto;
     height: 40px;
     width: 40px;
 
 }
 
-#machine{
-    height:90px;
-    width:140px;
-    display:flex;
+#machine {
+    height: 90px;
+    width: 140px;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+
 }
 
 
-.timeSlot{
+.timeSlot {
     border: 1px solid #ddd;
     background-color: white;
-    border-radius:5px;
+    border-radius: 5px;
     text-align: center;
     padding: 5px;
     display: inline-grid;
     justify-content: center;
     align-content: center;
-    font-family: 'Lilita One','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lilita One', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     cursor: pointer;
 }
 
-.timeSlot.selected{
+.timeSlot.selected {
     background-color: cadetblue;
     color: white;
-    
+
 }
 
-.timeSlot.unavailable{
+.timeSlot.unavailable {
     pointer-events: none;
     background-color: gray;
     color: white;
 }
 
-.block{
-    display:inline-block;
+.block {
+    display: inline-block;
     margin: 0px;
     padding: 0px;
     align-content: center;
     justify-content: center;
 }
 
-.sideLinks.selected{
-    color:white;
+.sideLinks.selected {
+    color: white;
     background-color: cadetblue;
 }
 
-.selected{
-    color:white;
+.selected {
+    color: white;
 }
 
-#dynamic{
+#dynamic {
     min-height: 60vw;
 }
 
-#dynamic #maintenanceBody{
+#dynamic #maintenanceBody {
     display: flex;
     flex-direction: column;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     align-items: center;
     justify-content: center;
 }
 
-#daySelector{
+#daySelector {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -214,7 +214,7 @@ h1{
     margin-left: 110px;
 }
 
-.days{
+.days {
     border: 1px solid #ccc;
     background-color: white;
     padding: 30px;
@@ -229,46 +229,48 @@ h1{
     align-items: center;
 }
 
-.days.selected{
+.days.selected {
     background-color: cadetblue;
     color: white;
-    
+
 }
 
-.machineDisplayer .Machine{
+.machineDisplayer .Machine {
     margin: 10px;
 }
 
-.machineDisplayer .machine{
-    height:100px;
-    display:flex;
+.machineDisplayer .machine {
+    height: 100px;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.machineDisplay{
+.machineDisplay {
     display: flex;
     margin: 3em;
     background-color: white;
     border-radius: 5px;
-    padding: 10px;
-    box-shadow: 10px 10px 10px rgba(0,0,0,0.2);
+    padding: 80px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
     align-items: center;
 }
 
-.machineDisplay span{
+.machineDisplay span {
     font-family: "Lilita One";
+    font-size: 18px;
 }
 
-#machineSelect{
+#machineSelect {
     border-radius: 5px;
     border-color: white;
     background-color: white;
     font-family: "Lilita One";
+    font-size: 18px;
 }
 
-.machineButtons{
+.machineButtons {
     border-color: white;
     background-color: cadetblue;
     color: white;
@@ -282,7 +284,7 @@ h1{
     cursor: pointer;
 }
 
-.machineDisplayer{
+.machineDisplayer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -291,15 +293,15 @@ h1{
     background-color: white;
     border-radius: 5px;
     padding: 10px;
-    box-shadow: 10px 10px 10px rgba(0,0,0,0.2);   
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
 }
 
-.commentSection{
+.commentSection {
     display: flex;
     flex-direction: column;
 }
 
-.commentSection button{
+.commentSection button {
     background-color: white;
     border-radius: 5px;
     font-family: "Lilita One";

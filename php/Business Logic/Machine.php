@@ -1,32 +1,25 @@
 <?php
-namespace BusinessLogic;
-use DataAccess;
-class Machine{
-  private $machine;
-  private $status;
 
-   public function __construct($machine,$status){
-      $this->$machine=$machine;
-      $this->$status=$status;
+namespace BusinessLogic;
+
+use DataAccess;
+
+class Machine
+{
+   public $machineID;
+   public $status;
+
+   public function __construct($machineID, $status)
+   {
+      $this->machineID = $machineID;
+      $this->status = $status;
    }
-  public function getMachine(){
-      return $this->machine; 
+   public function getMachineID()
+   {
+      return $this->machineID;
    }
-   public function getStatus(){
+   public function getStatus()
+   {
       return $this->status;
    }
-  
 }
-
-
-
-
-
-
-
-
-
-
-
-
-?>
