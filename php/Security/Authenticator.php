@@ -12,10 +12,34 @@ class Authenticator
     {
         session_start();
         date_default_timezone_set('America/Jamaica');
+        $this->mysqli = new mysqli("localhost", "root", "", "138users");
+
+        if ($this->mysqli->connect_error) {
+            die("Connection failed: " . $this->mysqli->connect_error);
+        }
     }
 
-    public function login($username, $password)
+    public function loginUser($username, $password)
     {
+        $username = $this->mysqli->real_escape_string($username);
+        $query = $this->mysqli->prepare("SELECT password, usertype FROM dorm WHERE username = ?");
+        if ($query) {
+            $query->bind_param("s", $username);
+            if ($query->execute()) {
+                $query->store_result();
+                if ($query->num_rows === 1) {
+                    $query->bind_result($storedPassword, $role);
+                    $query->fetch();
+                    $query->close();
+                    $info = ['password' => $storedPassword, 'type' => $role];
+                    return $info;
+                } else {
+                    $info = ['password' => "incorrect", 'type' => "incorrect"];
+                    return $info;
+                }
+            }
+        }
+        return "incorrect";
     }
 
     public function logout()
