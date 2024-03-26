@@ -22,16 +22,16 @@ class Authenticator
     public function loginUser($username, $password)
     {
         $username = $this->mysqli->real_escape_string($username);
-        $query = $this->mysqli->prepare("SELECT password, usertype FROM dorm WHERE username = ?");
+        $query = $this->mysqli->prepare("SELECT password, usertype, firstname, lastname FROM dorm WHERE username = ?");
         if ($query) {
             $query->bind_param("s", $username);
             if ($query->execute()) {
                 $query->store_result();
                 if ($query->num_rows === 1) {
-                    $query->bind_result($storedPassword, $role);
+                    $query->bind_result($storedPassword, $role, $firstname, $lastname);
                     $query->fetch();
                     $query->close();
-                    $info = ['password' => $storedPassword, 'type' => $role];
+                    $info = ['password' => $storedPassword, 'type' => $role, 'firstname' => $firstname, 'lastname' => $lastname];
                     return $info;
                 } else {
                     $info = ['password' => "incorrect", 'type' => "incorrect"];

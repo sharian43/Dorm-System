@@ -19,6 +19,8 @@ class LoginUI
         if (password_verify($password, $stored['password'])) {
             var_dump($stored);
             $_SESSION['username'] = $username;
+            $_SESSION['firstname'] = $stored['firstname'];
+            $_SESSION['lastname'] = $stored['lastname'];
             $_SESSION['role'] = $stored['type'];
             if ($stored['type'] == 'resident') {
                 return "time";

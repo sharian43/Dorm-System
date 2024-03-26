@@ -32,7 +32,10 @@ class TimeslotUI
     public function assignTime($machineKey, $timeslot, $selectedDay)
     {
         $controller = new BusinessLogic\TimeslotController();
-        $user = new Users\Resident("4567", "Something", "Something");
+        $username = $_SESSION['username'];
+        $firstname = $_SESSION['$firstname'];
+        $lastname = $_SESSION['lastname'];
+        $user = new Users\Resident($username, $firstname, $lastname);
         return $controller->assignTimeslot($machineKey, $timeslot, $selectedDay, $user);
     }
 

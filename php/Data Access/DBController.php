@@ -108,7 +108,7 @@ class DBController
         $machinery = $ts->getMachineNum();
         $timestamp = strtotime($timeslot12);
         $timeslot24 = date('H:i:s', $timestamp);
-        $username = "4567";
+        $username = $user->getId();
         if (Authenticator::verifyEmptyTimeslot($ts)) {
             if ($this->checkLimit($user->getId())) {
                 $updateQuery = $this->mysqli->prepare("UPDATE reservations SET user_name = ? WHERE machine = ? AND timeslot = ? AND day = ?");
