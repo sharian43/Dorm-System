@@ -21,8 +21,19 @@ require "MachineStatusUI.php";
     <script src="js\maint.js"></script>
 </head>
 
-<body>
-    <div class="machineDisplayer">
+<body class="withoutshadow">
+    <div id="timeSlotField">
+        <div id="topBar">
+            <img src="img\Menu Button.png" alt="menu button" id="menu">
+            <span id="currTime"></span>
+        </div>
+        <div id="sidebar">
+            <img src="img\closeButton.png" alt="Close Button" id="close">
+            <img src="img\profile.svg" alt="profile pic" id="profile">
+            <p><?= $_SESSION['firstname'] . " " . $_SESSION['lastname'] ?></p>
+            <div class="sideLinks"><a href="MachineRequest.php">Request Overview</a></div>
+            <div class="sideLinks selected"><a class="selected" href="http://localhost/Dorm-System/php/Presentation/MachineStatusView.php">Machine Statuses</a></div>
+        </div>
         <form class="machineDisplay" action="MachineStatusUI.php" method="post" onsubmit="machineStatusChange(event)">
             <select name="machine" id="machineSelect">
                 <Option value="Machine 1">

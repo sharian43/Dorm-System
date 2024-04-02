@@ -1,3 +1,20 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const side = document.getElementById("sidebar")
+    const close = document.getElementById("close")
+
+    function slideBar() {
+        side.style.left = "0";
+    }
+
+
+    function closer() {
+        side.style.left = "-300px";
+    }
+    close.addEventListener("click", closer);
+
+    menu.addEventListener("click", slideBar)
+})
+
 function machineStatusChange(event) {
     event.preventDefault();
     const selectElement = event.target.querySelector('select');
