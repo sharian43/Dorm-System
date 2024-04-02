@@ -1,6 +1,10 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     const schedule = new XMLHttpRequest();
+    const menuList = new XMLHttpRequest();
+    const menu = document.getElementById("menu");
+    const side = document.getElementById("sidebar")
+    const close = document.getElementById("close")
     const dynamic = document.getElementById("gridWork");
     const days = document.querySelectorAll(".days");
     const daysOfWeek = {
@@ -21,6 +25,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         return element;
     }
+
+    function slideBar() {
+        side.style.left = "0";
+    }
+
+
+    function closer() {
+        side.style.left = "-300px";
+    }
+    close.addEventListener("click", closer);
+
+    menu.addEventListener("click", slideBar)
 
     days.forEach(day => {
         day.addEventListener("click", function () {

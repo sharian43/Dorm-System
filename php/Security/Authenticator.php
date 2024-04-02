@@ -10,7 +10,6 @@ class Authenticator
 
     public function __construct()
     {
-        session_start();
         date_default_timezone_set('America/Jamaica');
         $this->mysqli = new mysqli("localhost", "root", "", "138users");
 
@@ -89,7 +88,8 @@ class Authenticator
         if ($mysqli->connect_error) {
             die("Connection failed: " . $mysqli->connect_error);
         }
-        $selectedDay = $ts->getDay();
+        $days = ["Sunday" => 0, "Monday" => 1, "Tuesday" => 2, "Wednesday" => 3, "Thursday" => 4, "Friday" => 5, "Saturday" => 6];
+        $selectedDay = $days[$ts->getDay()];
         $timeslot12 = $ts->getTime();
         $machinery = $ts->getMachineNum();
         $timestamp = strtotime($timeslot12);

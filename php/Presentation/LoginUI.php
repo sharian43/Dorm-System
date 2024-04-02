@@ -2,6 +2,8 @@
 
 namespace Presentation;
 
+session_start();
+
 use Security;
 
 require "../Security/Authenticator.php";

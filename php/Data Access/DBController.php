@@ -2,6 +2,7 @@
 
 namespace DataAccess;
 
+
 use mysqli;
 use Security;
 use Security\Authenticator;
@@ -97,12 +98,12 @@ class DBController
 
     public function assignUserTimeslot($user, $ts)
     {
+        $days = ["Sunday" => 0, "Monday" => 1, "Tuesday" => 2, "Wednesday" => 3, "Thursday" => 4, "Friday" => 5, "Saturday" => 6];
         $reservations = array();
-        $selectedDay = $ts->getDay();
+        $selectedDay = $days[$ts->getDay()];
         if ($selectedDay == "null") {
             $selectedDay = Date("w");
         }
-
         //assign data that was posted to the handler to variables
         $timeslot12 = $ts->getTime();
         $machinery = $ts->getMachineNum();
@@ -177,6 +178,70 @@ class DBController
         $updateQuery = $this->mysqli->prepare("UPDATE reservations SET user_name = NULL WHERE machine = ?");
         $updateQuery->bind_param("s", $failMachine);
         return $updateQuery->execute();
+    }
+
+    public function getCancelSlots()
+    {
+        $user = $_SESSION['username'];
+        //get the number of timeslots the user is assigned to
+        $assignmentQuery = $this->mysqli->prepare("SELECT assignments FROM dorm WHERE username=?");
+        $assignmentQuery->bind_param("s", $user);
+
+        //assign the number of timeslot user is assigned to to number variable
+        if ($assignmentQuery->execute()) {
+            $result = $assignmentQuery->get_result();
+            $row = $result->fetch_assoc();
+            $number = $row["assignments"];
+        }
+
+        //get the information of the specified user timeslots that are still available to be cancelled
+        $infoQuery = $this->mysqli->prepare("SELECT machine, timeslot, day FROM reservations WHERE user_name = ?");
+        $infoQuery->bind_param("s", $user);
+
+        //assign these timeslots to array variables
+        if ($infoQuery->execute()) {
+            $result = $infoQuery->get_result();
+            $mech = array();
+            $clock = array();
+            $week = array();
+            $iter = 0;
+            while ($rows =  $result->fetch_assoc()) {
+                $mech[$iter] = $rows["machine"];
+                $clock[$iter] = $rows['timeslot'];
+                $week[$iter] = $rows['day'];
+                $iter++;
+            }
+            return array('mech' => $mech, 'week' => $week, 'clock' => $clock, 'iter' => $iter);
+        }
+    }
+
+    public function removeTimeslot($machine, $timeslot, $selectedDay, $user)
+    {
+        $uname = $user->getId();
+        $days = ["Sunday" => 0, "Monday" => 1, "Tuesday" => 2, "Wednesday" => 3, "Thursday" => 4, "Friday" => 5, "Saturday" => 6];
+        //get the total number of reservations the user has made for the week(assignments) 
+        $assignmentQuery = $this->mysqli->prepare("SELECT assignments FROM dorm WHERE username=?");
+        $assignmentQuery->bind_param("s", $uname);
+
+        if ($assignmentQuery->execute()) {
+            $result = $assignmentQuery->get_result();
+            $row = $result->fetch_assoc();
+            $number = $row["assignments"];
+        }
+
+        //Remove the user from the assoicated timeslot
+        $updateQuery = $this->mysqli->prepare("UPDATE reservations SET user_name=null WHERE machine=? AND day= ? AND timeslot=?");
+        $updateQuery->bind_param("sss", $machine, $days[$selectedDay], $timeslot);
+
+        if ($updateQuery->execute()) {
+            if ($number > 0) {
+                //Reduce the users total number of reservations made for the week allowing them to reassign to another timeslot for the week.
+                $this->mysqli->query("UPDATE dorm SET assignments = assignments - 1 WHERE username = '$uname'");
+                return "success";
+            }
+        } else {
+            return "failure";
+        }
     }
 
     //get the machine status of the selected machine

@@ -19,7 +19,7 @@ $TimeslotUI = new TimeslotUI();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>138 Dorm Laundry System</title>
+    <title>Laundry Link</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
@@ -44,6 +44,16 @@ $TimeslotUI = new TimeslotUI();
                     <?= $day ?>
                 </div>
             <?php endforeach; ?>
+        </div>
+        <div id="sidebar">
+            <img src="img\closeButton.png" alt="Close Button" id="close">
+            <img src="img\profile.svg" alt="profile pic" id="profile">
+            <p><?= $_SESSION['firstname'] . " " . $_SESSION['lastname'] ?></p>
+            <div class="sideLinks selected"><a class="selected" href="http://localhost/dorm-System/php/presentation/timeslotView.php">Reservation Schedule</a></div>
+            <div class="sideLinks"><a href="WaitlistDisplay.php">Waitlist</a></div>
+            <div class="sideLinks"><a href="TicketGenerator.php">Ticket View</a></div>
+            <div class="sideLinks"><a href="MaintenanceRequest.php">Maintenance Request</a></div>
+            <div class="sideLinks"><a href="http://localhost/dorm-System/php/presentation/CancelView.php">Cancel Reservation</a></div>
         </div>
         <!--Sets up the reservation schedule timeslots checking for if a slot is selected from database and if its time is passed and displaying it to the user -->
         <div id="gridWork">

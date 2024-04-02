@@ -185,6 +185,7 @@ h1 {
 .sideLinks.selected {
     color: white;
     background-color: cadetblue;
+    pointer-events: none;
 }
 
 .selected {

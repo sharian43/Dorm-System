@@ -5,6 +5,7 @@ namespace Presentation;
 use BusinessLogic;
 use Users;
 
+session_start();
 require "../Business Logic/TimeslotController.php";
 require "../Users/Resident.php";
 
@@ -33,7 +34,7 @@ class TimeslotUI
     {
         $controller = new BusinessLogic\TimeslotController();
         $username = $_SESSION['username'];
-        $firstname = $_SESSION['$firstname'];
+        $firstname = $_SESSION['firstname'];
         $lastname = $_SESSION['lastname'];
         $user = new Users\Resident($username, $firstname, $lastname);
         return $controller->assignTimeslot($machineKey, $timeslot, $selectedDay, $user);
