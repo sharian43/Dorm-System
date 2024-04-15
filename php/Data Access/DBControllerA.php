@@ -1,6 +1,6 @@
 <?php
 
-class DBController
+class DBControllerA
 {
     private $mysqli;
 
