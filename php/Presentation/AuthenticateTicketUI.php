@@ -6,10 +6,10 @@ class AuthenticateTicketUI
     {
         session_start();
 
-        require_once 'DBController.php';
+        require_once 'DBControllerA.php';
         require_once 'AuthenticateController.php';
 
-        $dbController = new DBController();
+        $dbController = new DBControllerA();
         $username = $_SESSION['userName'];
         $usertype = $dbController->getUserType($username);
 
