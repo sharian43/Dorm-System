@@ -1,0 +1,2 @@
+[00:24:22]  
+[00:26:12]  machine 8 is currently down and the buttons are not turning as they should be.

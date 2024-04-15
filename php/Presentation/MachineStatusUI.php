@@ -24,7 +24,7 @@ class MachineStatusUI
 
     private function fetchMachineStatuses()
     {
-        $query = $this->mysqli->prepare("SELECT machineName, machineStatus FROM `machine status`");
+        $query = $this->mysqli->prepare("SELECT machineName, machineStatus FROM `machine status`" );
         if ($query->execute()) {
             $result = $query->get_result();
             $this->reservations = [];
