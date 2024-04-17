@@ -16,8 +16,6 @@
 // use Users;
 
 require "../Data Access/DBControllerM.php";
-
-date_default_timezone_set('America/Jamaica');
 // Read and parse submitted issues from the file
   $file = 'submitted_issues.txt';
 
@@ -27,14 +25,14 @@ date_default_timezone_set('America/Jamaica');
       echo "<ul>";
       foreach ($submittedIssues as $issue) {
         // Split the line to retrieve issue description and submission time
-        list($issueDescription, $submissionTime) = explode(']', $issue, 2);
-        $issueDescription = trim(substr($issueDescription, 1));
-        $submissionTime = trim($submissionTime); 
+        list($submissionTime, $issueDescription) = explode(']', $issue, 2);
+        $submissionTime = trim(substr($submissionTime, 1));
+        $issueDescription = trim($issueDescription);
 
         // Display the submitted issue in a list item
         echo "<li>";
+        echo "<strong>Submission Time:</strong> " . htmlspecialchars($submissionTime) . "<br>";
         echo "<strong>Issue Description:</strong> " . htmlspecialchars($issueDescription) . "<br>";
-        echo "<strong>Submission Time:</strong> " . $submissionTime;
         echo "</li>";
         echo "<br>";
       }

@@ -7,13 +7,13 @@ use Users;
 require "../Data Access/DBControllerM.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $submissionTime = date('H:i:s');
-    $issueDescription = $_POST["issue"];
+  $submissionTime = date('m/d/Y, h:i:s');
+  $issueDescription = $_POST["issue"];
 
-    $file = 'submitted_issues.txt';
-    file_put_contents($file, "[$submissionTime]  $issueDescription" . PHP_EOL, FILE_APPEND);
+  $file = 'submitted_issues.txt';
+  file_put_contents($file, "[$submissionTime]  $issueDescription" . PHP_EOL, FILE_APPEND);
 
-    echo "success";
+  echo "success";
 } 
 ?>
 
