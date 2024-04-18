@@ -37,8 +37,9 @@ require "QueueUI.php";
             <div class="sideLinks"><a href="http://localhost/dorm-System/php/presentation/timeslotView.php">Reservation Schedule</a></div>
             <div class="sideLinks selected"><a class="selected" href="http://localhost/dorm-System/php/presentation/QueueView.php">Waitlist</a></div>
             <div class="sideLinks"><a href="http://localhost/dorm-System/php/presentation/AuthenticateTicketView.php">Ticket View</a></div>
-            <div class="sideLinks"><a href="MaintenanceRequest.php">Maintenance Request</a></div>
+            <div class="sideLinks"><a href="http://localhost/dorm-System/php/presentation/GenerateMaintenanceView.php">Maintenance Request</a></div>
             <div class="sideLinks"><a href="http://localhost/dorm-System/php/presentation/CancelView.php">Cancel Reservation</a></div>
+            <div class="sideLinks"><a href="http://localhost/Dorm-System/php/Presentation/login.php">Logout</a></div>
         </div>
         <div id="dynamic">
             <div id="waitlist-container">

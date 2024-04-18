@@ -28,6 +28,8 @@ class LoginUI
                 return "time";
             } else if ($stored["type"] == "maintenance") {
                 return "status";
+            } else if ($stored["type"] == "staff") {
+                return "staff";
             }
         }
         return "incorrect";

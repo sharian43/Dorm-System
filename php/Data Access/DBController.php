@@ -419,6 +419,49 @@ class DBController
         }
     }
 
+    public function submitRequest($request)
+    {
+        $issue = $request->getIssue();
+        $issueQuery = $this->mysqli->prepare("INSERT INTO requests (issue) VALUES (?)");
+        $issueQuery->bind_param("s", $issue);
+        if ($issueQuery->execute()) {
+            return "stored";
+        } else {
+            return "incorrect";
+        }
+    }
+
+    public function getMaintenanceRequest()
+    {
+        $issues = [];
+        $dates = [];
+
+        $issueQuery = $this->mysqli->prepare("SELECT issue, submission_time FROM requests");
+        if ($issueQuery) {
+            if ($issueQuery->execute()) {
+                $result = $issueQuery->get_result();
+                if ($result->num_rows > 0) {
+                    while ($rows = $result->fetch_assoc()) {
+                        $issues[] = $rows["issue"];
+                        $dates[] = $rows["submission_time"];
+                    }
+                    $maintIssue = array(
+                        "issues" => $issues,
+                        "dates" => $dates,
+                    );
+                    $issueQuery->close();
+                    return $maintIssue;
+                } else {
+                    return ["issues" => [], "dates" => []];
+                }
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
 
 
     public function closeConnection()

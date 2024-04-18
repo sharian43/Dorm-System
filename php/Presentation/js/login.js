@@ -18,6 +18,9 @@ function Login(event) {
             else if (data.includes("incorrect")) {
                 alert("Incorrect User Credentials");
             }
+            else if (data.includes("staff")) {
+                window.location.href = "http://localhost/Dorm-System/php/Presentation/AuthenticateTicketView.php"
+            }
             else {
                 console.log(data);
             }

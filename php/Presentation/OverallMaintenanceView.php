@@ -5,7 +5,7 @@ namespace Presentation;
 use BusinessLogic;
 use Users;
 
-require "CancelUI.php";
+require "GenerateMaintenanceUI.php";
 ?>
 <html lang="en">
 
@@ -18,7 +18,7 @@ require "CancelUI.php";
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css\laundry.css" />
-    <script src="js\cancel.js"></script>
+    <script src="js\side.js"></script>
 </head>
 
 <body>
@@ -31,24 +31,20 @@ require "CancelUI.php";
             <img src="img\closeButton.png" alt="Close Button" id="close">
             <img src="img\profile.svg" alt="profile pic" id="profile">
             <p><?= $_SESSION['firstname'] . " " . $_SESSION['lastname'] ?></p>
-            <div class="sideLinks"><a href="http://localhost/dorm-System/php/presentation/timeslotView.php">Reservation Schedule</a></div>
-            <div class="sideLinks"><a href="http://localhost/dorm-System/php/presentation/QueueView.php">Waitlist</a></div>
-            <div class="sideLinks"><a href="http://localhost/dorm-System/php/presentation/AuthenticateTicketView.php">Ticket View</a></div>
-            <div class="sideLinks"><a href="http://localhost/dorm-System/php/presentation/GenerateMaintenanceView.php">Maintenance Request</a></div>
-            <div class="sideLinks selected"><a class="selected" href="http://localhost/dorm-System/php/presentation/CancelView.php">Cancel Reservation</a></div>
+            <div class="sideLinks selected"><a class="selected" href="http://localhost/Dorm-System/php/Presentation/OverallMaintenanceView.php">Request Overview</a></div>
+            <div class="sideLinks"><a href="http://localhost/Dorm-System/php/Presentation/MachineStatusView.php">Machine Statuses</a></div>
             <div class="sideLinks"><a href="http://localhost/Dorm-System/php/Presentation/login.php">Logout</a></div>
         </div>
         <div id="dynamic">
             <div id="cancellationForm">
                 <!--Display the available cancellation timeslots using iter instead of number variable due to assignments not being renewed till next week for expired timeslots-->
                 <?php
-                $weekDays = [0 => "Sunday", 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday"];
-                $interaction = new CancelUI();
-                $info = $interaction->cancelReservationSlots();
+                $interactions = new GenerateMaintenanceUI();
+                $inform = $interactions->fetchRequest();
                 ?>
-                <?php for ($picket = 0; $picket < $info['iter']; $picket++) : ?>
-                    <div onclick="canceller(event)" class="timeSlotted selected"><?= $info['clock'][$picket] . " " . $info['mech'][$picket] . " " . $weekDays[$info['week'][$picket]] ?></div>
-                <?php endfor; ?>
+                <?php foreach ($inform['dates'] as $index => $date) : ?>
+                    <p class="check"><?= $date . " - " . $inform['issues'][$index] ?></p>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

@@ -312,3 +312,35 @@ h1 {
 .withoutshadow #timeSlotField {
     box-shadow: none;
 }
+
+#issue_description {
+    width: 900px;
+    height: 300px;
+}
+
+#requestForm {
+    font-family: "Lilita One";
+    font-size: 1.3em;
+    text-align: left;
+}
+
+.maintButton {
+    display: flex;
+    align-items: center;
+    background-color: cadetblue;
+    border-radius: 5px;
+    font-family: "Lilita One";
+    color: white;
+    font-size: 1em;
+    margin-top: 20px;
+    padding: 20px;
+    width: 100px;
+    height: 30px;
+}
+
+.check {
+    font-family: "Lilita One";
+    font-size: 1.5em;
+    color: cadetblue;
+    font-weight: 500;
+}
