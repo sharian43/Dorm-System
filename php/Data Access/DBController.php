@@ -180,6 +180,70 @@ class DBController
         return $updateQuery->execute();
     }
 
+    public function fetchResidentTickets()
+    {
+        $user = $_SESSION['username'];
+        $machineQuery = $this->mysqli->prepare("SELECT id, machine, timeslot, day FROM reservations WHERE user_name = ?");
+        $machineQuery->bind_param("s", $user);
+
+        if ($machineQuery->execute()) {
+            $result = $machineQuery->get_result();
+            $reservoir = array();
+            $dogs = array();
+            $three = array();
+            $ticketID = array();
+            $iter = 0;
+            while ($rows =  $result->fetch_assoc()) {
+                $reservoir[$iter] = $rows["machine"];
+                $dogs[$iter] = $rows['timeslot'];
+                $three[$iter] = $rows['day'];
+                $ticketID[$iter] = $rows['id'];
+                $iter++;
+            }
+            $tickets = array(
+                "machine" => $reservoir,
+                "timeslot" => $dogs,
+                "day" => $three,
+                "id" => $ticketID,
+                "increment" => $iter,
+            );
+            return $tickets;
+        }
+    }
+
+    public function fetchLaundryTickets()
+    {
+        $adminQuery = $this->mysqli->prepare("SELECT id, machine, timeslot, day, user_name FROM reservations WHERE user_name is NOT NULL");
+
+
+        if ($adminQuery->execute()) {
+            $resultant = $adminQuery->get_result();
+            $machines = array();
+            $time = array();
+            $day = array();
+            $userID = array();
+            $i = 0;
+            while ($rowing =  $resultant->fetch_assoc()) {
+                $machines[$i] = $rowing["machine"];
+                $time[$i] = $rowing['timeslot'];
+                $day[$i] = $rowing['day'];
+                $userID[$i] = $rowing['id'];
+                $users[$i] = $rowing['user_name'];
+                $i++;
+            }
+            $tickets = array(
+                "machine" => $machines,
+                "timeslot" => $time,
+                "day" => $day,
+                "id" => $userID,
+                "name" => $users,
+                "increment" => $i,
+            );
+            return $tickets;
+        }
+    }
+
+
     public function getCancelSlots()
     {
         $user = $_SESSION['username'];
@@ -279,6 +343,83 @@ class DBController
             return "Failed to update machine status.";
         }
     }
+
+    private function currentUsers()
+    {
+        $user = $_SESSION['username'];
+        $currentDay = date('w');
+
+
+        //Get current users selected machines and timeslot (if any) for current day from database
+        $query = $this->mysqli->prepare("SELECT id, machine, timeslot, user_name FROM reservations WHERE user_name = ? AND day = ?");
+        $query->bind_param("ss", $user, $currentDay);
+
+        if ($query->execute()) {
+            $result = $query->get_result();
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                return $row;
+            }
+            return null;
+        }
+    }
+
+    private function allUserNames()
+    {
+        $nameQuery = $this->mysqli->query("SELECT firstname, lastname, username FROM dorm");
+
+        if ($nameQuery) {
+            $usernames = array();
+
+            while ($rower = $nameQuery->fetch_assoc()) {
+                $username = $rower['username'];
+                $firstname = $rower['firstname'];
+                $lastname = $rower['lastname'];
+                $usernames[$username] = array('firstname' => $firstname, 'lastname' => $lastname);
+            }
+            return $usernames;
+        }
+    }
+
+    public function ticketDisplay()
+    {
+        $row = $this->currentUsers();
+        $usernames = $this->allUserNames();
+        $currentHour = date('H');
+        $currentDay = date('w');
+        $machineQuery = $this->mysqli->prepare("SELECT id, machine, HOUR(timeslot) as hour, day, user_name FROM reservations WHERE machine = ? AND day = ? AND user_name IS NOT NULL");
+        $nowServing = array();
+        $waitlist = array();
+        $machineQuery->bind_param("ss", $row["machine"], $currentDay);
+
+        if ($machineQuery->execute()) {
+            $result = $machineQuery->get_result();
+            $waitlist = array();
+            $nowServing = array();
+            while ($rows = $result->fetch_assoc()) {
+                $status = (intval($rows['hour']) === intval($currentHour)) ? "Now Serving" : "In Waiting";
+                $personWaiting = array(
+                    'ticketNumber' => "A" . $rows['id'],
+                    'name' => $usernames[$rows['user_name']]['firstname'] . " " . $usernames[$rows['user_name']]['lastname'],
+                    'machine' => $rows['machine'],
+                    'status' => $status,
+                );
+
+                if ($status === "Now Serving") {
+                    $nowServing[] = $personWaiting;
+                } else {
+                    $waitlist[] = $personWaiting;
+                }
+            }
+            $ticketList = array(
+                "nowServing" => $nowServing,
+                "waitlist" => $waitlist,
+            );
+            return $ticketList;
+        }
+    }
+
+
 
     public function closeConnection()
     {

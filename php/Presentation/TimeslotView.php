@@ -50,8 +50,8 @@ $TimeslotUI = new TimeslotUI();
             <img src="img\profile.svg" alt="profile pic" id="profile">
             <p><?= $_SESSION['firstname'] . " " . $_SESSION['lastname'] ?></p>
             <div class="sideLinks selected"><a class="selected" href="http://localhost/dorm-System/php/presentation/timeslotView.php">Reservation Schedule</a></div>
-            <div class="sideLinks"><a href="WaitlistDisplay.php">Waitlist</a></div>
-            <div class="sideLinks"><a href="TicketGenerator.php">Ticket View</a></div>
+            <div class="sideLinks"><a href="http://localhost/dorm-System/php/presentation/QueueView.php">Waitlist</a></div>
+            <div class="sideLinks"><a href="http://localhost/dorm-System/php/presentation/AuthenticateTicketView.php">Ticket View</a></div>
             <div class="sideLinks"><a href="MaintenanceRequest.php">Maintenance Request</a></div>
             <div class="sideLinks"><a href="http://localhost/dorm-System/php/presentation/CancelView.php">Cancel Reservation</a></div>
         </div>
