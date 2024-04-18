@@ -1,0 +1,57 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background-image:url(rm222batch2-mind-03.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    margin:0;
+    padding:0;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#laundry-system {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+h2{
+    font-family: 'Lilita One','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:cadetblue;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.notification {
+    padding: 15px;
+    background-color: #4CAF50;
+    color: white;
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    text-align: center;
+    border-radius: 5px;
+}
