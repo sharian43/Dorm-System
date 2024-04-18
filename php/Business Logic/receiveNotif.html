@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="notif.css"/>
+    <title>Notifications</title>
+    
+</head>
+<body>
+
+<div id="laundry-system">
+    <h2>Click the button below to receive notifications on when your laundry is done!</h2>
+    
+    <button onclick="startWashCycle()">Start Wash Cycle</button>
+    
+    <!-- Additional elements for your laundry system -->
+    <div id="machine-status"></div>
+    <div id="laundry-status"></div>
+</div>
+
+<div id="notification" class="notification"></div>
+
+<script>
+    function showNotification(message) {
+        var notification = document.getElementById('notification');
+        notification.innerText = message;
+        notification.style.display = 'block';
+
+        // Auto-hide after 7 seconds
+        setTimeout(function () {
+            notification.style.display = 'none';
+        }, 7000);
+    }
+
+    function startWashCycle() {
+        // Placeholder for starting the wash cycle logic
+        showNotification('Wash cycle started. You will be notified when it\'s complete.');
+        setTimeout(function () {
+            notifyLaundryReady();
+        }, 30000); // Simulating a 30-second wash cycle for demo purposes
+    }
+
+    function notifyLaundryReady() {
+        showNotification('Your laundry is ready for pickup!');
+    }
+</script>
+
+</body>
+</html>
