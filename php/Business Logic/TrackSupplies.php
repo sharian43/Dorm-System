@@ -80,7 +80,7 @@ $stock = $stockManager->getStock();
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="track.css"/>
+  <link rel="stylesheet" href="../Presentation/css\track.css"/>
     <title>138 Dorm Laundry Supplies Stock</title>
 </head>
 <body>
