@@ -81,58 +81,59 @@ require "AuthenticateTicketUI.php";
                     <?php endfor; ?>
                 </div>
             </div>
-        <?php else : ?>
-            <div id="timeSlotField">
-                <div id="topBar">
-                    <img src="img\Menu Button.png" alt="menu button" id="menu">
-                    <span id="currTime"></span>
-                </div>
-                <div id="sidebar">
-                    <img src="img\closeButton.png" alt="Close Button" id="close">
-                    <img src="img\profile.svg" alt="profile pic" id="profile">
-                    <p><?= $_SESSION['firstname'] . " " . $_SESSION['lastname'] ?></p>
-                    <div class="sideLinks selected"><a class="selected" href="http://localhost/dorm-System/php/presentation/AuthenticateTicketView.php">Ticket Overview</a></div>
-                    <div class="sideLinks"><a href="http://localhost/dorm-System/php/presentation/GenerateMaintenanceView.php">Maintenance Request</a></div>
-                    <div class="sideLinks"><a href="http://localhost/Dorm-System/php/Presentation/login.php">Logout</a></div>
-                </div>
-                <div id="dynamic">
-                    <div class="ticketBox">
-                        <?php
-                        $controller = new BusinessLogic\AuthenticateTicketContoller();
-                        $authTicks = $controller->authenticateAllReservations();
-                        $i = $authTicks['increment'];
-                        $users = $authTicks['name'];
-                        $day = $authTicks['day'];
-                        $userID = $authTicks['id'];
-                        $time = $authTicks['timeslot'];
-                        $machines = $authTicks['machine'];
-                        ?>
-                        <?php for ($ticket = 0; $ticket < $i; $ticket++) : ?>
-                            <div class="container">
-                                <h2>Queue Ticket</h2>
-                                <div class="machine">
-                                    <div id="user">
-                                        <h3 id="id">User ID: <?= $users[$ticket] ?></h3>
-                                        <h3 id="date">Day: <?= $day[$ticket] ?></h3>
-                                    </div>
-                                    <p id="ticket"><strong>Ticket ID:</strong></p>
-                                    <p id="dec1">********************************************</p>
-                                    <h3 id="ticket-val">A<?= $userID[$ticket] ?></h3>
-                                    <p id="dec2">********************************************</p>
-                                    <h4>Description:</h4>
-                                    <p id="details"><strong>Time Slot:</strong> <?= $time[$ticket] ?><br>
-                                        <strong>Period:</strong> 60 mins<br>
-                                        <strong>Service:</strong> Wash, Rinse & Dry<br>
-                                        <strong>Selected Equipment:</strong> <?= $machines[$ticket] ?>
-                                    </p>
-                                    <p id="message">Tip: Please arrive 5 minutes prior to your scheduled time!</p>
+        </div>
+    <?php else : ?>
+        <div id="timeSlotField">
+            <div id="topBar">
+                <img src="img\Menu Button.png" alt="menu button" id="menu">
+                <span id="currTime"></span>
+            </div>
+            <div id="sidebar">
+                <img src="img\closeButton.png" alt="Close Button" id="close">
+                <img src="img\profile.svg" alt="profile pic" id="profile">
+                <p><?= $_SESSION['firstname'] . " " . $_SESSION['lastname'] ?></p>
+                <div class="sideLinks selected"><a class="selected" href="http://localhost/dorm-System/php/presentation/AuthenticateTicketView.php">Ticket Overview</a></div>
+                <div class="sideLinks"><a href="http://localhost/dorm-System/php/presentation/GenerateMaintenanceView.php">Maintenance Request</a></div>
+                <div class="sideLinks"><a href="http://localhost/Dorm-System/php/Presentation/login.php">Logout</a></div>
+            </div>
+            <div id="dynamic">
+                <div class="ticketBox">
+                    <?php
+                    $controller = new BusinessLogic\AuthenticateTicketContoller();
+                    $authTicks = $controller->authenticateAllReservations();
+                    $i = $authTicks['increment'];
+                    $users = $authTicks['name'];
+                    $day = $authTicks['day'];
+                    $userID = $authTicks['id'];
+                    $time = $authTicks['timeslot'];
+                    $machines = $authTicks['machine'];
+                    ?>
+                    <?php for ($ticket = 0; $ticket < $i; $ticket++) : ?>
+                        <div class="container">
+                            <h2>Queue Ticket</h2>
+                            <div class="machine">
+                                <div id="user">
+                                    <h3 id="id">User ID: <?= $users[$ticket] ?></h3>
+                                    <h3 id="date">Day: <?= $day[$ticket] ?></h3>
                                 </div>
+                                <p id="ticket"><strong>Ticket ID:</strong></p>
+                                <p id="dec1">********************************************</p>
+                                <h3 id="ticket-val">A<?= $userID[$ticket] ?></h3>
+                                <p id="dec2">********************************************</p>
+                                <h4>Description:</h4>
+                                <p id="details"><strong>Time Slot:</strong> <?= $time[$ticket] ?><br>
+                                    <strong>Period:</strong> 60 mins<br>
+                                    <strong>Service:</strong> Wash, Rinse & Dry<br>
+                                    <strong>Selected Equipment:</strong> <?= $machines[$ticket] ?>
+                                </p>
+                                <p id="message">Tip: Please arrive 5 minutes prior to your scheduled time!</p>
                             </div>
-                        <?php endfor; ?>
-                    </div>
+                        </div>
+                    <?php endfor; ?>
                 </div>
             </div>
-        <?php endif; ?>
+        </div>
+    <?php endif; ?>
 </body>
 
 </html>

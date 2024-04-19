@@ -13,13 +13,16 @@ function Login(event) {
 
             }
             else if (data.includes("status")) {
-                window.location.href = "http://localhost/Dorm-System/php/Presentation/MachineStatusView.php"
+                alert("correct Credentials");
+                window.location.href = "http://localhost/Dorm-System/php/Presentation/MachineStatusView.php";
+            }
+
+            else if (data.includes("staff")) {
+                alert("Correct Crentials");
+                window.location.href = "http://localhost/Dorm-System/php/Presentation/GenerateMaintenanceView.php";
             }
             else if (data.includes("incorrect")) {
                 alert("Incorrect User Credentials");
-            }
-            else if (data.includes("staff")) {
-                window.location.href = "http://localhost/Dorm-System/php/Presentation/AuthenticateTicketView.php"
             }
             else {
                 console.log(data);
